@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgress-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      folder: postgress
+  template:
+    metadata:
+      labels:
+        folder: postgress
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: postgress-pvc
+          persistentVolumeClaim:
+            claimName: postgress-pvc
+      containers:
+        - name: postgress
+          image: postgres
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-pgpassword
+                  key: PGPASSWORD
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgress-pvc
+              subPath: postgres

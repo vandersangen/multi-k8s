@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      folder: client
+  template:
+    metadata:
+      labels:
+        folder: client
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: client
+          image: larsvandersangen/multi-client
+          imagePullPolicy: IfNotPresent

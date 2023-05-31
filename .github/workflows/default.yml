@@ -1,0 +1,42 @@
+name: Deploy to AWS EB
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+#      - run: docker build -t larsvandersangen/react-test -f ./client/Dockerfile.dev ./client
+#      - run: docker run -e CI=true larsvandersangen/react-test npm test -- --coverage
+#
+#      - run: docker build -t larsvandersangen/multi-client ./client
+#      - run: docker build -t larsvandersangen/multi-nginx ./nginx
+#      - run: docker build -t larsvandersangen/multi-server ./server
+#      - run: docker build -t larsvandersangen/multi-worker ./worker
+#
+#      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+#      - run: docker push larsvandersangen/multi-client
+#      - run: docker push larsvandersangen/multi-nginx
+#      - run: docker push larsvandersangen/multi-server
+#      - run: docker push larsvandersangen/multi-worker
+#
+#      - name: Generate client package
+#        run: zip -r deploy.zip . -x '*.git*'
+#
+#      - name: Deploy to EB
+#        uses: einaregilsson/beanstalk-deploy@v18
+#        with:
+#          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+#          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+#          application_name: ${{ secrets.AWS_APPLICATION_NAME }}
+#          environment_name: ${{ secrets.AWS_ENVIRONMENT_NAME }}
+#          existing_bucket_name: ${{secrets.AWS_BUCKET_NAME }}
+#          region: ${{ secrets.AWS_REGION }}
+#          version_label: ${{ github.sha }}
+#          deployment_package: deploy.zip
+#          use_existing_version_if_available: true

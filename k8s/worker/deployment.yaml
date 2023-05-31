@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      folder: worker
+  template:
+    metadata:
+      labels:
+        folder: worker
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: worker
+          image: larsvandersangen/multi-worker
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip
+            - name: REDIS_PORT
+              value: "6379"

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      folder: server
+  template:
+    metadata:
+      labels:
+        folder: server
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: server
+          image: larsvandersangen/multi-server
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip
+            - name: REDIS_PORT
+              value: "6379"
+            - name: PGHOST
+              value: postgress-cluster-ip
+            - name: PGUSER
+              value: postgres
+            - name: PGPORT
+              value: "5432"
+            - name: PGDATABASE
+              value: postgres
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-pgpassword
+                  key: PGPASSWORD

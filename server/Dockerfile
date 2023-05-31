@@ -1,0 +1,12 @@
+FROM node:14.14.0-alpine
+#FROM node:16-alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
+
+# Not nessecary in dev, but leave it as reminder for placeholder value
+COPY . .
+
+CMD ["npm", "run", "start"]
