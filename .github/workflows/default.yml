@@ -27,7 +27,7 @@ jobs:
       - name: Set Project
         uses: google-github-actions/setup-gcloud@v0
         with:
-          project_id: {{ vars.GKE_PROJECT_ID }}
+          project_id: '${{ vars.GKE_PROJECT_ID }}'
 
       - name: Auth
         run: |-
@@ -36,8 +36,8 @@ jobs:
       - name: Get GKE Credentials
         uses: google-github-actions/get-gke-credentials@v0
         with:
-          cluster_name: {{vars.GKE_CLUSTER_NAME}}
-          location: {{ vars.GKE_REGION }}
+          cluster_name: '${{vars.GKE_CLUSTER_NAME}}'
+          location: '${{ vars.GKE_REGION }}'
 
       - name: Build Docker images
         run: |-
