@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+
+kind: Certificate
+metadata:
+  name: multi-k8s.vandersangen.dev
+spec:
+  secretName: vandersangen-dev
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: vandersangen.dev
+  dnsNames:
+    - multi-k8s.vandersangen.dev
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - multi-k8s.vandersangen.dev
