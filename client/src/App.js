@@ -11,7 +11,7 @@ function App() {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Fibonacci calculator</h2>
+          <h2>Fibonacci calculator after PR update</h2>
         </header>
         <div>
           <Route exact path="/" component={Fib} />
