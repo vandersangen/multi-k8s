@@ -57,7 +57,13 @@ jobs:
 
       - name: Apply k8s files
         run: |-
-          kubectl apply -f k8s
+          kubectl apply -f ./k8s/client/
+          kubectl apply -f ./k8s/ingress/
+          kubectl apply -f ./k8s/postgress/
+          kubectl apply -f ./k8s/redis/
+          kubectl apply -f ./k8s/server/
+          kubectl apply -f ./k8s/worker/
+          
           kubectl set image deployments/server-deployment server=larsvandersangen/multi-server:${{ env.SHA }}
           kubectl set image deployments/client-deployment client=larsvandersangen/multi-client:${{ env.SHA }}
           kubectl set image deployments/worker-deployment worker=larsvandersangen/multi-worker:${{ env.SHA }}
