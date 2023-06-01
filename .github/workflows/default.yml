@@ -65,7 +65,7 @@ jobs:
           kubectl apply -f ./k8s/redis/
           kubectl apply -f ./k8s/server/
           kubectl apply -f ./k8s/worker/
-          kubectl apply -f ./k8s/certbot/
+          kubectl apply -f ./k8s/certmanager/
           
           kubectl set image deployments/server-deployment server=larsvandersangen/multi-server:${{ env.SHA }}
           kubectl set image deployments/client-deployment client=larsvandersangen/multi-client:${{ env.SHA }}
