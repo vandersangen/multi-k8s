@@ -11,9 +11,3 @@ spec:
   commonName: vandersangen.dev
   dnsNames:
     - multi-k8s.vandersangen.dev
-  acme:
-    config:
-      - http01:
-          ingressClass: nginx
-        domains:
-          - multi-k8s.vandersangen.dev
