@@ -25,13 +25,15 @@ spec:
             - name: REDIS_PORT
               value: "6379"
             - name: PGHOST
-              value: postgress-cluster-ip
+              value: postgres-cluster-ip
             - name: PGUSER
               value: postgres
             - name: PGPORT
               value: "5432"
             - name: PGDATABASE
               value: postgres
+            # Here the PGPASSWORD (required in container) env name is set to the value of the PGPASSWORD literal
+            # that exists in the k8s secret; secret-pgpassword
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:

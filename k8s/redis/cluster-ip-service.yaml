@@ -4,6 +4,8 @@ metadata:
   name: redis-cluster-ip
 spec:
   type: ClusterIP
+  # ServerClusterIp is coupled to the selector (metadata) tags.
+  # Which are entirely customizable.
   selector:
     folder: redis
   ports:

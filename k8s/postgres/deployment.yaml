@@ -1,27 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgress-deployment
+  name: postgres-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      folder: postgress
+      folder: postgres
   template:
     metadata:
       labels:
-        folder: postgress
+        folder: postgres
     spec:
       restartPolicy: Always
+      # Assign PVC to Deployment pods. Comes from pvc.yaml in current folder
       volumes:
-        - name: postgress-pvc
+        - name: postgres-pvc
           persistentVolumeClaim:
-            claimName: postgress-pvc
+            claimName: postgres-pvc
       containers:
-        - name: postgress
+        - name: postgres
           image: postgres
           imagePullPolicy: IfNotPresent
           env:
+            # For clarity; The POSTGRES_PASSWORD is given to the postgres image.
+            # And it is retrieved from a k8s secret named secret-pgpassword
+            # with a literal; PGPASSWORD
+            # kubectl create secret generic secret-pgpassword --from-literal PGPASSWORD=<your-actual-password>
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -31,5 +36,5 @@ spec:
             - containerPort: 5432
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgress-pvc
+              name: postgres-pvc
               subPath: postgres

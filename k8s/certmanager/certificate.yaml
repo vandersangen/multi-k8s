@@ -6,8 +6,10 @@ metadata:
 spec:
   secretName: multi-k8s-vandersangen-dev
   issuerRef:
+    # Set Issuer of certificate; letsencrypt-prod is prod version of lets-encrypt
     name: letsencrypt-prod
     kind: ClusterIssuer
+  # Side note; commonName must be present in dnsNames
   commonName: multi-k8s.vandersangen.dev
   dnsNames:
     - multi-k8s.vandersangen.dev

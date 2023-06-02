@@ -10,9 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Test
-        run: |-
+      - name: Test Docker base images
+        run: |- # Run whatever there is to test here. Below are dummy tests
           docker login -u ${{ vars.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          
           docker build -t larsvandersangen/react-test -f ./client/Dockerfile.dev ./client
           docker run -e CI=true larsvandersangen/react-test npm test
 
@@ -53,11 +54,13 @@ jobs:
         if: success() && github.ref == 'refs/heads/main'
         uses: google-github-actions/get-gke-credentials@v0
         with:
-          cluster_name: '${{vars.GKE_CLUSTER_NAME}}'
+          cluster_name: '${{ vars.GKE_CLUSTER_NAME }}'
           location: '${{ vars.GKE_REGION }}'
 
       - name: Apply k8s files
         if: success() && github.ref == 'refs/heads/main'
+        # First declarative. Update the k8s resources
+        # Then imperative; Update image to set to the newest version
         run: |-
           kubectl apply -f ./k8s/client/
           kubectl apply -f ./k8s/ingress/
@@ -66,7 +69,7 @@ jobs:
           kubectl apply -f ./k8s/server/
           kubectl apply -f ./k8s/worker/
           kubectl apply -f ./k8s/certmanager/
-          
+
           kubectl set image deployments/server-deployment server=larsvandersangen/multi-server:${{ env.SHA }}
           kubectl set image deployments/client-deployment client=larsvandersangen/multi-client:${{ env.SHA }}
           kubectl set image deployments/worker-deployment worker=larsvandersangen/multi-worker:${{ env.SHA }}

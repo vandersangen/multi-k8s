@@ -1,6 +1,6 @@
 apiVersion: networking.k8s.io/v1
-# UPDATE API
 kind: Ingress
+
 metadata:
   name: ingress-service
   annotations:
@@ -12,6 +12,7 @@ metadata:
 
     # Certificate config
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
 spec:
   tls:
     - hosts:
@@ -35,3 +36,22 @@ spec:
                 name: server-cluster-ip
                 port:
                   number: 5000
+
+#    Boilerplate (untested yet) for multiple-domains in 1 ingress
+#    - host: multi-k8s-other-domain.vandersangen.dev
+#      http:
+#        paths:
+#          - path: /?(.*)
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: client-cluster-ip
+#                port:
+#                  number: 3000
+#          - path: /api/?(.*)
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: server-cluster-ip
+#                port:
+#                  number: 5000
