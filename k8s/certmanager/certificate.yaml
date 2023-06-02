@@ -8,6 +8,6 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: vandersangen.dev
+  commonName: multi-k8s.vandersangen.dev
   dnsNames:
     - multi-k8s.vandersangen.dev
