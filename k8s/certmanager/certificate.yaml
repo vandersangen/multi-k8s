@@ -4,7 +4,7 @@ kind: Certificate
 metadata:
   name: multi-k8s.vandersangen.dev
 spec:
-  secretName: vandersangen-dev
+  secretName: multi-k8s-vandersangen-dev
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
