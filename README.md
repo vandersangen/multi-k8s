@@ -44,6 +44,11 @@ $ helm install my-release ingress-nginx/ingress-nginx
 $ helm repo add jetstack https://charts.jetstack.io
 $ helm repo update
 $ helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.8.0 --set installCRDs=true
+
+# Add external cluster (other context) to local
+$ kubectl config set-cluster <cluster-name> --server=http://<master-ip>:<port> --api-version=v1
+$ kubectl config use-context <cluster-name>
+
 ```
 
 To authorize GitHub Actions with our Google Cloud Cluster (and get the `${{ secrets.GKE_SA_KEY }}` out of Google Cloud;
