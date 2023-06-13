@@ -35,6 +35,17 @@ This project-template contains the following:
 # Set/authorize gcloud with k8s cluster in console
 $ gcloud config set compute/zone <your-gke-clusterzone-here>
 $ gcloud container clusters get-credentials <your-multi-k8s-cluster>
+
+# Otherwise when configuring a on-premise k8s cluster. Run below commands on cluster 
+$ kubectl create serviceaccount <username>
+$ kubectl create token <username>
+
+# Copy (newly generated section of) kube-config to external device
+# Still on cluster
+$ cat <kube-config file
+# Copy server, context and (new) user and paste in external device kube-config file
+# Finish with setting the token on the external device's newly added user
+$ kubectl config set-credentials <username> --token=<token>
    
 # Install ingress-nginx
 $ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
