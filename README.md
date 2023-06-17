@@ -46,6 +46,8 @@ $ cat <kube-config file
 # Copy server, context and (new) user and paste in external device kube-config file
 # Finish with setting the token on the external device's newly added user
 $ kubectl config set-credentials <username> --token=<token>
+# To create tokens that last indefinetly: https://kubernetes.io/docs/reference/access-authn-authz/authentication/#static-token-file
+
    
 # Install ingress-nginx
 $ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
